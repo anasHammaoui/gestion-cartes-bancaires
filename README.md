@@ -14,9 +14,9 @@ Ce projet a pour objectif la gestion des cartes bancaires (débit, crédit, pré
 - **Outils :** Git, IDE IntelliJ
 
 ## Structure du projet
-src/
-├── entity/    
-├── service/
-├── dao/      
-├── ui/
-└── utils/  
+### src/
+### ├── entity/    
+### ├── service/
+### ├── dao/      
+### ├── ui/
+### └── utils/  
