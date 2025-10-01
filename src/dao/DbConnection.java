@@ -13,7 +13,7 @@ public class DbConnection {
         try {
             return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e){
-            System.out.println("failed to connnect sql" + e.getMessage());
+            System.out.println("failed to connnect sql");
             return null;
         }
     }

@@ -1,5 +1,3 @@
 package entity;
 
-import java.util.UUID;
-
-public record Client(UUID id, String nom, String phone) {}
+public record Client(String id, String nom,String email, String phone) {}
