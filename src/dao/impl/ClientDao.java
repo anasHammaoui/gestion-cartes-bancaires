@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Optional;
 
 public class ClientDao implements ClientInterface {
 
@@ -31,48 +32,45 @@ public class ClientDao implements ClientInterface {
     }
 
     @Override
-    public Client findClientByName(String name) throws DaoException {
-        if ( name == null || name.isBlank()){
-            throw new IllegalArgumentException("Name is required");
-        }
+    public Optional<Client> findClientByName(String name) throws DaoException {
+
         String query = "SELECT * FROM client WHERE client.nom = ?";
         try(Connection conn = DbConnection.getConnection()){
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, name);
             ResultSet result =  stmt.executeQuery();
             if (result.next()){
-                return new Client(
+                Client client = new Client(
                         result.getString("id"),
                         result.getString("nom"),
                         result.getString("email"),
                         result.getString("phone")
                 );
+                return  Optional.of(client);
             }
-            return  null;
+            return  Optional.empty();
         } catch(SQLException e){
             throw new DaoException("Faild to get client: " + e.getMessage());
         }
     }
 
     @Override
-    public Client findClientByEmail(String email) throws DaoException {
-        if ( email == null || email.isBlank()){
-            throw new IllegalArgumentException("Email is required");
-        }
+    public Optional<Client> findClientByEmail(String email) throws DaoException {
         String query = "SELECT * FROM client WHERE client.email = ?";
         try(Connection conn = DbConnection.getConnection()){
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1, email);
             ResultSet result =  stmt.executeQuery();
             if (result.next()){
-                return new Client(
+                Client client = new Client(
                         result.getString("id"),
                         result.getString("nom"),
                         result.getString("email"),
                         result.getString("phone")
                 );
+                return  Optional.of(client);
             }
-            return  null;
+            return  Optional.empty();
         } catch(SQLException e){
             throw new DaoException("Faild to get client: " + e.getMessage());
         }
@@ -80,9 +78,6 @@ public class ClientDao implements ClientInterface {
 
     @Override
     public Boolean deleteClient(String id) throws DaoException {
-        if ( id == null || id.isBlank()){
-            throw new IllegalArgumentException("id is required");
-        }
         String query = "DELETE FROM client WHERE client.id = ?";
         try(Connection conn = DbConnection.getConnection()){
             PreparedStatement stmt = conn.prepareStatement(query);
