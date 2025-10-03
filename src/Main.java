@@ -29,7 +29,6 @@ public class Main {
         // Create a new debit card
         CarteDebit newCard = new CarteDebit();
         newCard.setId(UUID.randomUUID().toString());
-        newCard.setNumiro("1234567890123456");
         newCard.setDateExpiration(LocalDateTime.now().plusYears(3));
         newCard.setStatus(StatutEnum.ACTIVE);
         newCard.setIdClient("154a8958-40e1-4668-b628-d985e4f5f001");
@@ -39,6 +38,7 @@ public class Main {
         try {
             carteService.createCarte(newCard);
             System.out.println("Card created successfully!");
+            System.out.println("Auto-generated card number: " + newCard.getNumiro());
             
             // // Read the card back
             // Optional<Carte> retrievedCard = carteService.readCard(newCard.getId());

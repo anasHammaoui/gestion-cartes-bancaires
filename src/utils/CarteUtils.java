@@ -3,6 +3,7 @@ package utils;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 
 import entity.Carte;
 import entity.CarteCredit;
@@ -50,5 +51,30 @@ public class CarteUtils {
         carte.setTypeCarte(carteType);
         
         return carte;
+    }
+
+    public static String generateCardNumber(CarteEnum carteType) {
+        Random random = new Random();
+        StringBuilder cardNumber = new StringBuilder();
+        
+        switch (carteType) {
+            case CARTEDEBIT:
+                cardNumber.append("4"); 
+                break;
+            case CARTECREDIT:
+                cardNumber.append("5");
+                break;
+            case CARTEPREPAYEE:
+                cardNumber.append("6");
+                break;
+            default:
+                cardNumber.append("9"); 
+        }
+        
+        for (int i = 1; i < 16; i++) {
+            cardNumber.append(random.nextInt(10));
+        }
+        
+        return cardNumber.toString();
     }
 }

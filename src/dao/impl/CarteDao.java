@@ -20,6 +20,12 @@ public class CarteDao implements CarteInterface {
     @Override
 public void createCarte(Carte carte) throws DaoException {
 
+    if (carte.getNumiro() == null || carte.getNumiro().isBlank()) {
+        String generatedNumber = CarteUtils.generateCardNumber(carte.getTypeCarte());
+        carte.setNumiro(generatedNumber);
+        System.out.println("Generated card number: " + generatedNumber);
+    }
+
     String query;
     switch (carte.getTypeCarte()) {
         case CARTEDEBIT:
