@@ -45,7 +45,7 @@ public void createCarte(Carte carte) throws DaoException {
         stmt.setString(1, carte.getId());
         stmt.setString(2, carte.getNumiro());
         stmt.setDate(3, carte.getDateExpiration() != null ? Date.valueOf(carte.getDateExpiration().toLocalDate()) : null);
-        stmt.setString(4, carte.getTypeCarte().toString());
+        stmt.setString(4, carte.getTypeCarte().toString().toUpperCase());
         stmt.setString(5, carte.getStatus().toString());
         stmt.setString(6, carte.getIdClient());
 
