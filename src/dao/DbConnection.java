@@ -9,12 +9,11 @@ public class DbConnection {
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
-    public static Connection getConnection(){
+    public static Connection getConnection() throws SQLException{
         try {
             return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e){
-            System.out.println("failed to connnect sql");
-            return null;
+            throw new SQLException("failed to connnect sql");
         }
     }
 }

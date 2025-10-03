@@ -15,10 +15,7 @@ public class ClientDao implements ClientInterface {
 
     @Override
     public void createClient(Client client) throws DaoException {
-        if (client == null) {
-            throw new IllegalArgumentException("Client is required");
-        }
-        String query = "INSTERT INTO client (id, nom, email, phone) VALUES (?,?,?,?)";
+        String query = "INSERT INTO client (id, nom, email, phone) VALUES (?,?,?,?)";
         try (Connection conn = DbConnection.getConnection()){
             PreparedStatement stmt = conn.prepareStatement(query);
             stmt.setString(1,client.id());
@@ -26,6 +23,7 @@ public class ClientDao implements ClientInterface {
             stmt.setString(3,client.email());
             stmt.setString(4,client.phone());
             stmt.executeUpdate();
+            System.out.println("client created with success");
         } catch (SQLException e){
             throw new DaoException("failed to insert client: " + e.getMessage());
         }
