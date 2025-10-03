@@ -1,13 +1,16 @@
 import dao.impl.ClientDao;
 import dao.impl.CarteDao;
+import dao.impl.OperationDao;
 import entity.Client;
-import entity.Carte;
 import entity.CarteDebit;
+import entity.OperationCarte;
 import entity.enums.CarteEnum;
 import entity.enums.StatutEnum;
+import entity.enums.OperationTypeEnum;
 import exception.ServiceException;
 import service.impl.CarteService;
 import service.impl.ClientService;
+import service.impl.OperationService;
 
 import java.sql.Connection;
 import java.time.LocalDateTime;
@@ -60,6 +63,36 @@ public class Main {
         } catch (ServiceException e) {
             System.out.println("Error: " + e.getMessage());
         }
+
+        // Operation CRUD Example:
+        /*
+        OperationDao operationDao = new OperationDao();
+        OperationService operationService = new OperationService(operationDao);
+        
+        try {
+            // Register different types of operations
+            operationService.enregistrerAchat(newCard.getId(), 50.0, "Supermarché Carrefour");
+            operationService.enregistrerRetrait(newCard.getId(), 100.0, "ATM BNP Paribas");
+            operationService.enregistrerPaiement(newCard.getId(), 25.99, "Amazon.fr");
+            
+            // Search operations by card
+            List<OperationCarte> operationsByCard = operationService.rechercherOperationsParCarte(newCard.getId());
+            System.out.println("Operations for card: " + operationsByCard.size());
+            
+            // Filter by type
+            List<OperationCarte> achats = operationService.filtrerParType(OperationTypeEnum.ACHAT);
+            System.out.println("Total purchases: " + achats.size());
+            
+            // Filter by date range
+            LocalDateTime startDate = LocalDateTime.now().minusDays(1);
+            LocalDateTime endDate = LocalDateTime.now().plusDays(1);
+            List<OperationCarte> todayOperations = operationService.filtrerParDate(startDate, endDate);
+            System.out.println("Today's operations: " + todayOperations.size());
+            
+        } catch (ServiceException e) {
+            System.out.println("Operation Error: " + e.getMessage());
+        }
+        */
 
         // client crud
 //        try {
